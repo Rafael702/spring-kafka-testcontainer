@@ -1,0 +1,36 @@
+server:
+  port: 8081
+
+spring:
+  kafka:
+    bootstrap-servers: PLAINTEXT://localhost:52754
+    producer:
+      key-serializer : org.apache.kafka.common.serialization.StringSerializer
+      value-serializer : org.apache.kafka.common.serialization.StringSerializer
+      client-id: pedidos
+    consumer:
+      group-id: test
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+    listener:
+      ack-mode: MANUAL_IMMEDIATE
+    topic: topic
+management:
+  health:
+    diskSpace:
+      enabled: false
+    ping:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health, scheduledtasks
+
+logging:
+  level:
+    root: INFO
